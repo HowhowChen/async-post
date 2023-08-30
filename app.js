@@ -99,8 +99,8 @@ function PostConstructor(payloads) {
 
   // 非同步發送請求
   this.sendRequests = async function() {
-    this.Makedirs('files', { recursive: true })
-    this.Makedirs('files/results', { recursive: true })
+    const resultFilePath = 'files/results'
+    this.Makedirs(resultFilePath, { recursive: true })
 
     const outputData = []
     const urls = this.getTargetUrls()
@@ -117,7 +117,7 @@ function PostConstructor(payloads) {
       }
     }
     
-    await fsPromise.appendFile(`./files/results/${dayjs().format('YYYY-MM-DD')}.json`, JSON.stringify(outputData))
+    await fsPromise.appendFile(`${resultFilePath}/${dayjs().format('YYYY-MM-DD')}.json`, JSON.stringify(outputData))
   }
 }
 
